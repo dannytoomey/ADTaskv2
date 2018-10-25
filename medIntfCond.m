@@ -326,20 +326,20 @@ for task=1:numTask
                     Screen('FillRect', window, RGB3, centeredRect3);
                     Screen('FillRect', window, RGB4, centeredRect4);
                 elseif 25<stimLoc&&stimLoc<=50
-                    Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
                     Screen('FillRect', window, RGB1, centeredRect1);
+                    Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
                     Screen('FillRect', window, RGB3, centeredRect3);
                     Screen('FillRect', window, RGB4, centeredRect4);
                 elseif 50<stimLoc&&stimLoc<=75
-                    Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
                     Screen('FillRect', window, RGB1, centeredRect1);
                     Screen('FillRect', window, RGB2, centeredRect2);
+                    Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
                     Screen('FillRect', window, RGB4, centeredRect4);
                 elseif 75<stimLoc
-                    Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
                     Screen('FillRect', window, RGB1, centeredRect1);
                     Screen('FillRect', window, RGB2, centeredRect2);
                     Screen('FillRect', window, RGB3, centeredRect3);
+                    Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
                 end
                 
                 %play tone. 2/3 low tone, 1/3 high tone
