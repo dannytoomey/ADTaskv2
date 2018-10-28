@@ -17,7 +17,7 @@
 % the amount of interference of each condition will be determined by the
 % similarity of distractors to a target. in the low interference condition,
 % the target will be a red circle among blue squares. in the medium
-% interference condition, the target will be a red circle or square among
+% interference condition, the target will be a red square among
 % blue cirlces and squares. in the high interference condition, the target will
 % be a red circle among red and blue squares. the idea is:
 %
@@ -28,10 +28,6 @@
 %% Medium Interference Condition
 
 function medIntfCond(sjNum)
-
-
-Screen('Preference','SkipSyncTests',1);    %added for laptop, delete later
-
 
 sca;
 PsychDefaultSetup(2);
@@ -81,18 +77,18 @@ numTrials = 6;
 valCueThres=2/3;
 invalCueThres=1/3;
 
-medTaskOrder=1;
+load('taskCBOrder.mat');
 
 for task=1:numTask
         
     Screen('TextSize',window,50);
     Screen('TextFont',window,'Courier');
     ignoreTones=['Respond to the location of \n'...
-        'the red shape with the F and J keys \n'...
+        'the red square with the F and J keys \n'...
         '(F = left and J = right) \n'...
         'ignore the tones.'];
     respTones=['Respond to the location of \n'...
-        'the red shape with the F and J keys \n'...
+        'the red square with the F and J keys \n'...
         '(F = left and J = right) \n'...
         'unless you hear a high tone. \n'...
         'Do not respond when you \n'...
@@ -141,14 +137,14 @@ for task=1:numTask
                 'Remember these letters in order. \n \n' ... 
                 'Remember to ignore the tones \n' ... 
                 'and respond to the location \n' ... 
-                'of the red shape. \n \n'...
+                'of the red square. \n \n'...
                 sprintf('%s',cueInst) '\n \n' ... 
                 'Press space when you are ready \n' ... 
                 'to see the letters.'];
             dualTaskInst = ['You are about to see a sequence of letters. \n'... 
                 'Remember these letters in order. \n \n'...
                 'Remember to respond to the \n' ... 
-                'location of the red shape. \n' ... 
+                'location of the red square. \n' ... 
                 'unless you hear a high tone.\n'...
                 'Do not respond when you \n' ...
                 'hear a high tone.\n \n ' ...
@@ -166,9 +162,9 @@ for task=1:numTask
                 end
             end
             if medTaskOrder==2
-                if task==2
+                if task==1
                     DrawFormattedText(window,dualTaskInst,'center','center', white);
-                elseif task==1
+                elseif task==2
                     DrawFormattedText(window,singleTaskInst,'center','center', white);
                 end
             end
@@ -182,16 +178,11 @@ for task=1:numTask
             letters = ['A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'I' 'J' 'K' 'L' 'M' 'N' 'O' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'X' 'Y' 'Z'];
             rng('shuffle');
             LTs = randperm(26,5);
-            LT1 = LTs(1,1);
-            LT2 = LTs(1,2);
-            LT3 = LTs(1,3);
-            LT4 = LTs(1,4);
-            LT5 = LTs(1,5);
-            letter1 = letters(1,LT1);
-            letter2 = letters(1,LT2);
-            letter3 = letters(1,LT3);
-            letter4 = letters(1,LT4);
-            letter5 = letters(1,LT5);
+            letter1 = letters(1,LTs(1,1));
+            letter2 = letters(1,LTs(1,2));
+            letter3 = letters(1,LTs(1,3));
+            letter4 = letters(1,LTs(1,4));
+            letter5 = letters(1,LTs(1,5));
             Screen('TextSize', window, 35);
             Screen('DrawText',window,letter1,xCenter - 1.5*xScale,yCenter,white);
             Screen('DrawText',window,letter2,xCenter - .75*xScale,yCenter,white);
@@ -271,26 +262,85 @@ for task=1:numTask
                 rng('shuffle');
                 targetLoc=randi(100);
                 
+                rng('shuffle');
+                stimLoc=randi(100);
+                
                 if boxLctn<=50
                     if cueOrder(1,trial)<=thres
                         if targetLoc<=50
                             RGB1(1,1)=255;
                             RGB1(1,3)=0;
                             target=1;
+                            Screen('FillRect', window, RGB1, centeredRect1);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         elseif 50<targetLoc
                             RGB2(1,1)=255;
                             RGB2(1,3)=0;
-                            target=2;                        
+                            target=2;
+                            Screen('FillRect', window, RGB2, centeredRect2);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         end
                     elseif thres<cueOrder(1,trial)
                         if targetLoc<=50
                             RGB3(1,1)=255;
                             RGB3(1,3)=0;
                             target=3;
+                            Screen('FillRect', window, RGB3, centeredRect3);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         elseif 50<targetLoc
                             RGB4(1,1)=255;
                             RGB4(1,3)=0;
                             target=4;
+                            Screen('FillRect', window, RGB4, centeredRect4);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                            end
                         end
                     end
                 elseif 50<boxLctn
@@ -299,47 +349,78 @@ for task=1:numTask
                             RGB3(1,1)=255;
                             RGB3(1,3)=0;
                             target=3;
+                            Screen('FillRect', window, RGB3, centeredRect3);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         elseif 50<targetLoc
                             RGB4(1,1)=255;
                             RGB4(1,3)=0;
                             target=4;
+                            Screen('FillRect', window, RGB4, centeredRect4);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                            end
                         end
                     elseif thres<cueOrder(1,trial)
                         if targetLoc<=50
                             RGB1(1,1)=255;
                             RGB1(1,3)=0;
                             target=1;
+                            Screen('FillRect', window, RGB1, centeredRect1);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB2, centeredRect2);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         elseif 50<targetLoc
                             RGB2(1,1)=255;
                             RGB2(1,3)=0;
-                            target=2;                        
+                            target=2;
+                            Screen('FillRect', window, RGB2, centeredRect2);
+                            if stimLoc<=33
+                                Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 33<stimLoc&&stimLoc<=66
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                Screen('FillRect', window, RGB4, centeredRect4);
+                            elseif 66<stimLoc
+                                Screen('FillRect', window, RGB1, centeredRect1);
+                                Screen('FillRect', window, RGB3, centeredRect3);
+                                Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                            end
                         end
                     end
-                end
-                
-                rng('shuffle');
-                stimLoc=randi(100);
-                
-                if stimLoc<=25
-                    Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
-                    Screen('FillRect', window, RGB2, centeredRect2);
-                    Screen('FillRect', window, RGB3, centeredRect3);
-                    Screen('FillRect', window, RGB4, centeredRect4);
-                elseif 25<stimLoc&&stimLoc<=50
-                    Screen('FillRect', window, RGB1, centeredRect1);
-                    Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
-                    Screen('FillRect', window, RGB3, centeredRect3);
-                    Screen('FillRect', window, RGB4, centeredRect4);
-                elseif 50<stimLoc&&stimLoc<=75
-                    Screen('FillRect', window, RGB1, centeredRect1);
-                    Screen('FillRect', window, RGB2, centeredRect2);
-                    Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
-                    Screen('FillRect', window, RGB4, centeredRect4);
-                elseif 75<stimLoc
-                    Screen('FillRect', window, RGB1, centeredRect1);
-                    Screen('FillRect', window, RGB2, centeredRect2);
-                    Screen('FillRect', window, RGB3, centeredRect3);
-                    Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
                 end
                 
                 %play tone. 2/3 low tone, 1/3 high tone
@@ -389,7 +470,7 @@ for task=1:numTask
                 
                 trialData(1,trial) = cueCond;
                 trialData(2,trial) = cueOrder(1,trial);
-                trialData(3,trial) = boxCenX;
+                trialData(3,trial) = boxLctn;
                 trialData(4,trial) = targetLoc;
                 trialData(5,trial) = stimLoc;
                 trialData(6,trial) = tone;
@@ -441,11 +522,11 @@ for task=1:numTask
                         
             KbStrokeWait;
 
-            WMData(1,block) = letters(1,LT1);
-            WMData(2,block) = letters(1,LT2);
-            WMData(3,block) = letters(1,LT3);
-            WMData(4,block) = letters(1,LT4);
-            WMData(5,block) = letters(1,LT5);
+            WMData(1,block) = letters(1,LTs(1,1));
+            WMData(2,block) = letters(1,LTs(1,2));
+            WMData(3,block) = letters(1,LTs(1,3));
+            WMData(4,block) = letters(1,LTs(1,4));
+            WMData(5,block) = letters(1,LTs(1,5));
             WMData(6,block) = wmResp(1,1);
             WMData(7,block) = wmResp(1,2);
             WMData(8,block) = wmResp(1,3);
