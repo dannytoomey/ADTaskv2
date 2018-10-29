@@ -2,11 +2,15 @@
 % runfile for ADTaskv2
 
 sjNum = input('Input Subject Number ');
-condCBOrder = input('Input Condition CB Order ');
-taskCBOrder = input('Input Task CB Order ');
 age = input('Input Age ');
 gender = input('Input Gender (0 = M, 1 = F) ');
 handedness = input('Input Handedness (0 = L, 1 = R) ');
+
+counterBal=[1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6
+            1	2	3	4	5	6	2	3	4	5	6	1	3	4	5	6	1	2	4	5	6	1	2	3	5	6	1	2	3	4	6	1	2	3	4	5];
+
+taskCBOrder=counterBal(1,sjNum);
+condCBOrder=counterBal(2,sjNum);
 
 filePath = '/Users/labadmin/Documents/Experiments/ADTask/data';
 save([filePath '/' sprintf('sj%02d_SubjectInfo.mat',sjNum)],'age','gender','handedness','condCBOrder','taskCBOrder');

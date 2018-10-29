@@ -607,26 +607,85 @@ for cond=1:numCond
                         rng('shuffle');
                         targetLoc=randi(100);
 
+                        rng('shuffle');
+                        stimLoc=randi(100);
+
                         if boxLctn<=50
                             if cueOrder(1,trial)<=thres
                                 if targetLoc<=50
                                     RGB1(1,1)=255;
                                     RGB1(1,3)=0;
                                     target=1;
+                                    Screen('FillRect', window, RGB1, centeredRect1);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 elseif 50<targetLoc
                                     RGB2(1,1)=255;
                                     RGB2(1,3)=0;
-                                    target=2;                        
+                                    target=2;
+                                    Screen('FillRect', window, RGB2, centeredRect2);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 end
                             elseif thres<cueOrder(1,trial)
                                 if targetLoc<=50
                                     RGB3(1,1)=255;
                                     RGB3(1,3)=0;
                                     target=3;
+                                    Screen('FillRect', window, RGB3, centeredRect3);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 elseif 50<targetLoc
                                     RGB4(1,1)=255;
                                     RGB4(1,3)=0;
                                     target=4;
+                                    Screen('FillRect', window, RGB4, centeredRect4);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                    end
                                 end
                             end
                         elseif 50<boxLctn
@@ -635,47 +694,78 @@ for cond=1:numCond
                                     RGB3(1,1)=255;
                                     RGB3(1,3)=0;
                                     target=3;
+                                    Screen('FillRect', window, RGB3, centeredRect3);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 elseif 50<targetLoc
                                     RGB4(1,1)=255;
                                     RGB4(1,3)=0;
                                     target=4;
+                                    Screen('FillRect', window, RGB4, centeredRect4);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                    end
                                 end
                             elseif thres<cueOrder(1,trial)
                                 if targetLoc<=50
                                     RGB1(1,1)=255;
                                     RGB1(1,3)=0;
                                     target=1;
+                                    Screen('FillRect', window, RGB1, centeredRect1);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB2, centeredRect2);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 elseif 50<targetLoc
                                     RGB2(1,1)=255;
                                     RGB2(1,3)=0;
-                                    target=2;                        
+                                    target=2;
+                                    Screen('FillRect', window, RGB2, centeredRect2);
+                                    if stimLoc<=33
+                                        Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 33<stimLoc&&stimLoc<=66
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
+                                        Screen('FillRect', window, RGB4, centeredRect4);
+                                    elseif 66<stimLoc
+                                        Screen('FillRect', window, RGB1, centeredRect1);
+                                        Screen('FillRect', window, RGB3, centeredRect3);
+                                        Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
+                                    end
                                 end
                             end
-                        end
-
-                        rng('shuffle');
-                        stimLoc=randi(100);
-
-                        if stimLoc<=25
-                            Screen('FillOval', window, RGB1, centeredRect1, maxDiameter);
-                            Screen('FillRect', window, RGB2, centeredRect2);
-                            Screen('FillRect', window, RGB3, centeredRect3);
-                            Screen('FillRect', window, RGB4, centeredRect4);
-                        elseif 25<stimLoc&&stimLoc<=50
-                            Screen('FillRect', window, RGB1, centeredRect1);
-                            Screen('FillOval', window, RGB2, centeredRect2, maxDiameter);
-                            Screen('FillRect', window, RGB3, centeredRect3);
-                            Screen('FillRect', window, RGB4, centeredRect4);
-                        elseif 50<stimLoc&&stimLoc<=75
-                            Screen('FillRect', window, RGB1, centeredRect1);
-                            Screen('FillRect', window, RGB2, centeredRect2);
-                            Screen('FillOval', window, RGB3, centeredRect3, maxDiameter);
-                            Screen('FillRect', window, RGB4, centeredRect4);
-                        elseif 75<stimLoc
-                            Screen('FillRect', window, RGB1, centeredRect1);
-                            Screen('FillRect', window, RGB2, centeredRect2);
-                            Screen('FillRect', window, RGB3, centeredRect3);
-                            Screen('FillOval', window, RGB4, centeredRect4, maxDiameter);
                         end
 
                         %play tone. 2/3 low tone, 1/3 high tone
