@@ -67,9 +67,7 @@ stimY = y - y1/2;
 yScale = stimY(1,2);
 xScale = stimX(1,2);
 numChannels = 1;
-soundRep = 1;
 soundDur = 0.25;
-waitForDeviceStart = 0;
 
 numTask = 2;
 numCue = 2;
@@ -79,8 +77,7 @@ numTrials = 6;
 valCueThres=2/3;
 invalCueThres=1/3;
 
-%load('taskCBOrder.mat');
-lowTaskOrder=1;
+load('taskCBOrder.mat');
 
 for task=1:numTask
         
@@ -95,7 +92,7 @@ for task=1:numTask
         '(F = left and J = right) \n'...
         'unless you hear a high tone. \n'...
         'Do not respond when you \n'...
-        'a high tone.'];
+        'hear a high tone.'];
             
     if lowTaskOrder==1
         if task==1

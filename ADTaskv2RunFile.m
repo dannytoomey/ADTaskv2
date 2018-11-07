@@ -12,7 +12,7 @@ counterBal=[1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	5	6	1	2	3	4	
 taskCBOrder=counterBal(1,sjNum);
 condCBOrder=counterBal(2,sjNum);
 
-filePath = '/Users/labadmin/Documents/Experiments/ADTask/data';
+filePath = '/Users/labadmin/Documents/Experiments/ADTask/ADTaskv2/ADTaskv2Data';
 save([filePath '/' sprintf('sj%02d_SubjectInfo.mat',sjNum)],'age','gender','handedness','condCBOrder','taskCBOrder');
 
 if taskCBOrder==1
